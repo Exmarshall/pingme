@@ -56,26 +56,31 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { StreamChat } from "stream-chat";
 import { Chat, OverlayProvider } from "stream-chat-expo";
+import { useAuth } from "./AuthProvider";
 
 const client = StreamChat.getInstance(
   process.env.EXPO_PUBLIC_STREAM_API_KEY || ""
 );
 
 export default function ChatProvider({ children }: PropsWithChildren) {
+  const {profile} = useAuth();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    if (!profile){
+      return
+    }
     let mounted = true;
 
     const connect = async () => {
       try {
         await client.connectUser(
           {
-            id: "jlahey",
-            name: "Jim Lahey",
+            id: profile.id,
+            name: profile.full_name,
             image: "https://i.imgur.com/fR9Jz14.png",
           },
-          client.devToken("jlahey")
+          client.devToken(profile.id)
         );
 
         if (mounted) {
@@ -89,11 +94,13 @@ export default function ChatProvider({ children }: PropsWithChildren) {
     connect();
 
     return () => {
-      mounted = false;
-      client.disconnectUser(); // cleanup
+      if(isReady){
+         client.disconnectUser(); // cleanup
+      }
+     
       setIsReady(false);
     };
-  }, []);
+  }, [profile?.id]);
 
   if (!isReady) {
     return (
