@@ -38,6 +38,24 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSDKVersion": 26,
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33
+          }
+        }
+      ],
+      "@stream-io/video-react-native-sdk",
+      [
+        "@config-plugins/react-native-webrtc",
+        {
+          "cameraPermission": "$(PRODUCT_NAME) requires camera access in order to capture and transmit video",
+          "microphonePermission": "$(PRODUCT_NAME) requires microphone access in order to capture and transmit audio"
+        }
       ]
     ],
     "experiments": {
