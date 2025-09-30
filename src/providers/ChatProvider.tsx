@@ -64,7 +64,7 @@ const client = StreamChat.getInstance(
 );
 
 export default function ChatProvider({ children }: PropsWithChildren) {
-  const {profile} = useAuth();
+  const { profile } = useAuth();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -87,6 +87,8 @@ export default function ChatProvider({ children }: PropsWithChildren) {
         if (mounted) {
           setIsReady(true);
         }
+
+        if (mounted) setIsReady(true);
       } catch (err) {
         console.error("Stream connectUser failed:", err);
       }
@@ -98,7 +100,6 @@ export default function ChatProvider({ children }: PropsWithChildren) {
       if(isReady){
          client.disconnectUser(); // cleanup
       }
-     
       setIsReady(false);
     };
   }, [profile?.id]);
