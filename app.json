@@ -8,9 +8,15 @@
     "scheme": "pingme",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "PingMe requires camera access to capture and transmit video.",
+        "NSMicrophoneUsageDescription": "PingMe requires microphone access to capture and transmit audio."
+      }
     },
+
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -19,12 +25,21 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO",
+        "BLUETOOTH_CONNECT",
+        "POST_NOTIFICATIONS",
+        "INTERNET"
+      ]
     },
+
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
+
     "plugins": [
       "expo-router",
       [
@@ -43,9 +58,15 @@
         "expo-build-properties",
         {
           "android": {
-            "minSDKVersion": 26,
+            "minSdkVersion": 26,
             "compileSdkVersion": 33,
-            "targetSdkVersion": 33
+            "targetSdkVersion": 33,
+            "extraMavenRepos": [
+              "../../node_modules/@notifee/react-native/android/libs"
+            ]
+          },
+          "ios": {
+            "useFrameworks": "static"
           }
         }
       ],
@@ -53,11 +74,13 @@
       [
         "@config-plugins/react-native-webrtc",
         {
-          "cameraPermission": "$(PRODUCT_NAME) requires camera access in order to capture and transmit video",
-          "microphonePermission": "$(PRODUCT_NAME) requires microphone access in order to capture and transmit audio"
+          "cameraPermission": "PingMe requires camera access in order to capture and transmit video.",
+          "microphonePermission": "PingMe requires microphone access in order to capture and transmit audio."
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
+
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
