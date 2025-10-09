@@ -27,6 +27,7 @@
     "@stream-io/react-native-webrtc": "^125.4.4",
     "@stream-io/video-react-native-sdk": "^1.21.2",
     "@supabase/supabase-js": "^2.58.0",
+    "event-target-shim": "^5.0.1",
     "expo": "54.0.12",
     "expo-av": "~16.0.7",
     "expo-build-properties": "~1.0.9",
